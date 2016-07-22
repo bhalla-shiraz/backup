@@ -1,0 +1,67 @@
+Crossfilter:
+-------------
+ Square released a Javascript library called Crossfilter
+ Crossfilter is like a client-side OLAP server, quickly grouping, filtering, and aggregating tens or hundreds of thousands of rows of raw data very, very quickly.
+ Crossfire is intended to be combined with a graphing or charting library like D3, Highcharts, or the Google Visualization API;
+ doesn’t have a UI of its own.
+
+
+ understand facts , dimensions , and measures
+----------------------------------------------
+How many orders do we process per week?
+each order entry would be called a fact , and you would probably store this in an OrderFacts table
+The week would be a dimension ; it is a way you want to slice the data.
+count of orders would be a measure , it is a value that you want to calculate.
+
+
+How much revenue do we book per salesperson per week?
+your facts would be stored in an OrderFacts table
+ou would now have two dimensions , salesperson and week. And finally, your measure is dollars per order
+
+
+use JSON. Each row is a fact
+var livingThings = crossfilter([
+  // Fact data.
+  { name: “Rusty”,  type: “human”, legs: 2 },
+  { name: “Alex”,   type: “human”, legs: 2 },
+  { name: “Lassie”, type: “dog”,   legs: 4 },
+  { name: “Spot”,   type: “dog”,   legs: 4 },
+  { name: “Polly”,  type: “bird”,  legs: 2 },
+  { name: “Fiona”,  type: “plant”, legs: 0 }
+]);
+
+// How many living things are in my house?
+var n = livingThings.groupAll().reduceCount().value();
+console.log(“There are ” + n + “ living things in my house.”)
+// How many total legs are in my house?
+var legs = livingThings.groupAll().reduceSum(function(fact) { return fact.legs; }).value()
+console.log(“There are ” + legs + “ legs in my house.”) // 14
+
+how many living things in my house are dogs, and how many legs they have.
+For this, we’ll need a dimension
+dimension is going to be the type
+
+
+// Filter for dogs.
+var typeDimension = livingThings.dimension(function(d) { return d.type; });
+typeDimension.filter(“dog”)
+
+
+function isInt(n) {
+   return n % 1 === 0;
+}
+If you don't know that the argument is a number you need two tests:
+
+function isInt(n){
+    return Number(n) === n && n % 1 === 0;
+}
+
+function isFloat(n){
+    return Number(n) === n && n % 1 !== 0;
+}
+
+
+d3.svg.axis()
+    .tickFormat(function(d) { return d + "%"; });
+
+    
