@@ -1,0 +1,4 @@
+brew install mongodb
+mongod --dbpath /Users/sbhalla/DB_Data
+mongoimport --db checkout --collection data --type json --file PC1.json
+db.data.find({"orderId" : {$exists: true}})

@@ -1,0 +1,40 @@
+brew install mongodb
+mongod --dbpath /Users/sbhalla/DB_Data
+mongoimport --db checkout --collection data --type json --file PC1.json
+db.data.find({"orderId" : {$exists: true}})
+
+
+//Target: query Oracle SQL database from
+Oracle -
+bhalla.shiraz@gmail.com
+Sh0nn!12345
+
+
+//install sqldeveloper
+http://www.oracle.com/technetwork/developer-tools/sql-developer/downloads/index.html
+
+(wont work without JDK)
+JDK:
+http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+
+//create table
+
+//get select results
+
+use checkout
+
+
+
+// Convert Object to JSON
+            var jsonObject = JSON.stringify(items);
+
+            // Display JSON
+            $('#json').text(jsonObject);
+
+            // Convert JSON to CSV & Display CSV
+           ConvertToCSV(jsonObject);
+
+
+           http://bl.ocks.org/duopixel/3824661
+http://jsfiddle.net/Nivaldo/eL8Cq/
+http://bl.ocks.org/bobmonteverde/2070069

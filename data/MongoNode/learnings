@@ -1,0 +1,119 @@
+//queue library - asynchronous loading
+//queue function -  process data hosted at the API
+//inserts the data into the apiData Variable
+queue()
+    .defer(d3.json, "/checkout")
+    .await(getGraphs);
+
+
+
+
+function getGraphs(error, apiData) {
+  //Start Transformations
+
+  var livingThings = crossfilter([
+    { name: "Rusty",  type: "human", legs: 1 },
+    { name: "Alex",   type: "human", legs: 1 },
+    { name: "Lassie", type: "dog",   legs: 1 },
+    { name: "Spot",   type: "dog",   legs: 1 },
+    { name: "Polly",  type: "bird",  legs: 1 },
+    { name: "Fiona",  type: "plant", legs: 1 }
+  ]);
+
+  // How many living things are in my house?
+  var n = livingThings.groupAll().reduceCount().value();
+  console.log("There are " + n + " living things in my house.") // 6
+
+  // How many total legs are in my house?
+  var legs = livingThings.groupAll().reduceSum(function(fact) {
+   if(fact.type =="human"){
+    console.log(fact.type);
+    return fact.legs;
+   }
+   else{
+    return 0;
+   }
+
+  }).value()
+  console.log("There are " + legs + " legs in my house.") // 14
+
+ 	var set = apiData;
+  var countPlaced = 0;
+  console.log("here");
+  set.forEach(function(d) {
+ 		if(d.orderId != null){
+     countPlaced++;
+   }
+ 	});
+
+  console.log(countPlaced);
+
+  //Create a Crossfilter instance
+  	var ndx = crossfilter(set);
+   //dimension
+   var state = ndx.dimension(function(d) {
+      return d.purchaseContractLocation.stateOrProvinceCode;
+   });
+
+
+var all = ndx.groupAll();
+
+   // var totalConversions = ndx.groupAll().reduceSum(function(d) {return countPla;});
+   var totalConversionState = state.group().reduceSum(function(d) {
+        console.log("\nstat " + d.purchaseContractLocation.stateOrProvinceCode);
+        if(d.orderId != null)
+         return 1;
+        else{
+           return 0;
+        }
+  	});
+
+     // state.filter("AU");
+     var n = state.groupAll().reduceCount().value();
+     console.log("There are " + n + " states.") // 2
+
+   var totalSessions = dc.numberDisplay("#totalSessions");
+   var stateData = dc.barChart("#states");
+
+
+   var stateGroup = state.group();
+
+
+   totalSessions
+		.formatNumber(d3.format("d"))
+		.valueAccessor(function(d){return d; })
+		.group(all);
+
+
+  stateData
+    //.width(800)
+       .height(220)
+       .transitionDuration(1000)
+       .dimension(state)
+       .group(totalConversionState)
+       .margins({top: 10, right: 50, bottom: 30, left: 50})
+       // .centerBar(false)
+       .gap(4)
+       .elasticY(true)
+       .x(d3.scale.ordinal().domain(state))
+       .xUnits(dc.units.ordinal)
+       .renderHorizontalGridLines(true)
+       .renderVerticalGridLines(true)
+       // .ordering(function(d){return d.value;})
+       .yAxis().tickFormat(function(d) {
+         if( Number(d)%1 === 0 )
+           return Number(d);
+         else {
+
+           // this.tickSize(0);
+             return "" ;
+         }
+         });
+
+
+   var x = document.getElementById("conversionNumber");
+   x.innerHTML = countPlaced;
+
+   dc.renderAll();
+
+};

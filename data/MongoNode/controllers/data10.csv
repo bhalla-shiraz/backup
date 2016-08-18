@@ -1,0 +1,72 @@
+[
+  {
+    "date": "Jan 2000",
+    "price": 1394.46,
+    "alpha": "a"
+  },
+  {
+    "date": "Feb 2000",
+    "price": 1366.42,
+    "alpha": "b"
+  },
+  {
+    "date": "Mar 2000",
+    "price": 1498.58,
+    "alpha": "c"
+  },
+  {
+    "date": "Apr 2000",
+    "price": 1452.43,
+    "alpha": "x"
+  },
+  {
+    "date": "May 2000",
+    "price": 1420.6,
+    "alpha": "x"
+  },
+  {
+    "date": "Jun 2000",
+    "price": 1454.6,
+    "alpha": "x"
+  },
+  {
+    "date": "Jul 2000",
+    "price": 1430.83,
+    "alpha": "x"
+  },
+  {
+    "date": "Aug 2000",
+    "price": 1517.68,
+    "alpha": "x"
+  },
+  {
+    "date": "Sep 2000",
+    "price": 1436.51,
+    "alpha": "x"
+  },
+  {
+    "date": "Oct 2000",
+    "price": 1429.4,
+    "alpha": "x"
+  },
+  {
+    "date": "Nov 2000",
+    "price": 1314.95,
+    "alpha": "x"
+  },
+  {
+    "date": "Dec 2000",
+    "price": 1320.28,
+    "alpha": "x"
+  },
+  {
+    "date": "Jan 2001",
+    "price": 1366.01,
+    "alpha": "x"
+  },
+  {
+    "date": "Feb 2001",
+    "price": 1239.94,
+    "alpha": "x"
+  }
+]
